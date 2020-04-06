@@ -7,4 +7,4 @@ Copy the contents inside *bash profile.txt* to */etc/profile* of your server.
 ***paste***  
   
 # Output
-![](https://github.com/d3athkai/Linux-Login-Banner-MOTD/blob/master/banner.jpg?raw=true)
+![](https://github.com/d3athkai/MOTD-Login-Banner-for-Linux/blob/master/banner.jpg?raw=true)
