@@ -1,0 +1,71 @@
+#########################################################
+############# Start of Custom Login Profile #############
+# Tested working with CentOS 7, Ubuntu 16 and Raspbian  #
+# Last Updated: 28 May 2017                             #
+#########################################################
+
+CURRENT_USER=$(whoami)
+ORIGINAL_USER=$(who am i | awk '{print $1}')
+if [ $ORIGINAL_USER == $CURRENT_USER ]; then
+
+function printBar() {
+	input=$1
+	roundedInput=$(awk -v x=$input 'BEGIN{printf "%3.0f\n", x/2}')
+	output=""
+	for ((i=1;i<=$roundedInput;i++))
+	do
+		output=$output#
+	done
+	for ((i=1;i<=$((50 - $roundedInput));i++))
+	do
+		output+="-"
+	done
+	echo $output
+}
+
+tput setaf 9
+echo "`tput smso`  Terminal Info                                                `tput rmso`
+Hostname....... : $(hostname)
+IP Address..... : $(hostname -I | sed 's/[[:space:]]/, /g' | sed '$ s/, $//g')
+Release........ : $(cat /etc/*-release | grep PRETTY_NAME | grep -v grep | awk -F'=' '{print $2}' | sed -e 's/^"//' -e 's/"$//')
+Kernel......... : $(uname -sr)
+CPU............ : $(cat /proc/cpuinfo | grep -w "model name" | head -n1 | awk -F': ' '{print $2}')"
+
+DISKUSED=$(df -m / | grep -v Filesystem | awk '{print $3}')
+DISKFREE=$(df -m / | grep -v Filesystem | awk '{print $4}')
+DISKTOTAL=$(df -m / | grep -v Filesystem | awk '{print $2}')
+DISKPERCENTTEMP=$(awk "BEGIN {print ($DISKUSED/$DISKTOTAL * 100)}")
+DISKPERCENT=$(awk -v x=$DISKPERCENTTEMP 'BEGIN{printf "%03.2f\n", x}')
+MEMUSED=$(free -m | grep Mem | awk '{print $3}')
+MEMFREE=$(( $(free -m | grep Mem | awk '{print $4}') + $(free -m | grep Mem | awk  '{print $6}') ))
+MEMTOTAL=$(free -m | grep Mem | awk '{print $2}')
+MEMPERCENTTEMP=$(awk "BEGIN {print ($MEMUSED/$MEMTOTAL * 100)}")
+MEMPERCENT=$(awk -v x=$MEMPERCENTTEMP 'BEGIN{printf "%03.2f\n", x}')
+SWAPUSED=$(free -m | grep Swap | awk '{print $3}')
+SWAPFREE=$(free -m | grep Swap | awk '{print $4}')
+SWAPTOTAL=$(free -m | grep Swap | awk '{print $2}')
+SWAPPERCENTTEMP=$(awk "BEGIN {print ($SWAPUSED/$SWAPTOTAL * 100)}")
+SWAPPERCENT=$(awk -v x=$SWAPPERCENTTEMP 'BEGIN{printf "%03.2f\n", x}')
+echo "`tput smso`  Monitor                                                      `tput rmso`
+Disk Usage..... : ${DISKUSED}M Used, ${DISKFREE}M Free, ${DISKTOTAL}M Total
+[$(printBar $DISKPERCENT)] ${DISKPERCENT}%
+Memory Usage... : ${MEMUSED}M Used, ${MEMFREE}M Free, ${MEMTOTAL}M Total
+[$(printBar $MEMPERCENT)] ${MEMPERCENT}%
+Swap Usage..... : ${SWAPUSED}M Used, ${SWAPFREE}M Free, ${SWAPTOTAL}M Total
+[$(printBar $SWAPPERCENT)] ${SWAPPERCENT}%
+Load Averages.. : $(cat /proc/loadavg | awk '{print $1 ", " $2 ", " $3}') (1min, 5mins, 15mins)
+Running Process : $(ps -A --no-headers  | wc -l)
+Users Logged on : $(who --count | tail -1 | awk -F'=' '{print $2}') users ($( who --count | head -1 | sed 's/[[:space:]]/, /g' | sed '$ s/, $//g'))"
+
+echo "`tput smso`  Time                                                         `tput rmso`
+Uptime......... : $(uptime -p | cut -c4-)
+Last Boot...... : $(uptime -s | sed 's/[[:space:]]/, /g' | sed '$ s/, $//g')
+Current Time... : $(date +"%A, %d %B %Y, %T")
+Last Login..... : $(last -i | egrep -v 'logged|reboot' | head -1 | awk -F' ' '{print $1" ("$3") at "$6" "$5" "$7}')"
+
+fi
+
+export PROMPT_COMMAND='PS1="\n\033[01;36m\][\D{%A %D %T}]\[\033[01;32m\]{\w}\n\[\033[01;34m\]{\[\033[1;31m\]\u\[\033[01;37m\]@\[\033[01;35m\]\h\[\033[01;34m\]}\[\033[01;36m\]# \[\033[01;33m\]"'
+#########################################################
+############## End of Custom Login Profile ##############
+#########################################################
