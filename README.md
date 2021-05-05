@@ -1,5 +1,5 @@
 # Compatibility
-Login Banner tested working with Ubuntu 18, Centos 7 and Raspbian Buster.  
+Login Banner tested working with Ubuntu 18/20, Centos 7/8 and Raspberry Pi OS  
   
 # Setup
 Copy the contents inside *bash profile.txt* to */etc/profile* of your server.  
