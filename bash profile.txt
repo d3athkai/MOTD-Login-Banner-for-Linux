@@ -1,8 +1,8 @@
-#########################################################
-############# Start of Custom Login Profile #############
-# Tested working with CentOS 7, Ubuntu 16 and Raspbian  #
-# Last Updated: 28 May 2017                             #
-#########################################################
+#-----------------------------------------------------------------------#
+##################### Start of Custom Login Profile #####################
+# Works with Red Hat / CentOS / Rocky Linux / Ubuntu / Raspberry Pi OS  #
+# Last Updated: 16 March 2022                                           #
+#-----------------------------------------------------------------------#
 
 CURRENT_USER=$(whoami)
 ORIGINAL_USER=$(who am i | awk '{print $1}')
@@ -29,7 +29,7 @@ Hostname....... : $(hostname)
 IP Address..... : $(hostname -I | sed 's/[[:space:]]/, /g' | sed '$ s/, $//g')
 Release........ : $(cat /etc/*-release | grep PRETTY_NAME | grep -v grep | awk -F'=' '{print $2}' | sed -e 's/^"//' -e 's/"$//')
 Kernel......... : $(uname -sr)
-CPU............ : $(cat /proc/cpuinfo | grep -w "model name" | head -n1 | awk -F': ' '{print $2}')"
+CPU............ : $(lscpu |grep -w 'Model name' | awk -F':' '{ print $2 }' | awk '{$1=$1};1')"
 
 DISKUSED=$(df -m / | grep -v Filesystem | awk '{print $3}')
 DISKFREE=$(df -m / | grep -v Filesystem | awk '{print $4}')
@@ -66,6 +66,3 @@ Last Login..... : $(last -i | egrep -v 'logged|reboot' | head -1 | awk -F' ' '{p
 fi
 
 export PROMPT_COMMAND='PS1="\n\033[01;36m\][\D{%A %D %T}]\[\033[01;32m\]{\w}\n\[\033[01;34m\]{\[\033[1;31m\]\u\[\033[01;37m\]@\[\033[01;35m\]\h\[\033[01;34m\]}\[\033[01;36m\]# \[\033[01;33m\]"'
-#########################################################
-############## End of Custom Login Profile ##############
-#########################################################
