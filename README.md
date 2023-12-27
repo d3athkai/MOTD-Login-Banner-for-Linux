@@ -3,7 +3,7 @@
 # MOTD Login Banner for Linux
 
 ## Compatibility
-Login Banner tested working with Ubuntu 18/20, CentOS 7/8/Stream and Raspberry Pi OS  
+Login Banner tested working with latest Red Hat, Rocky Linux, Ubuntu and Raspberry Pi OS.  
   
 ## Setup
 Copy the contents inside *bash profile.txt* to */etc/profile* of your server.  
