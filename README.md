@@ -1,4 +1,5 @@
-![GitHub](https://img.shields.io/github/license/d3athkai/MOTD-Login-Banner-for-Linux?style=plastic) ![GitHub](https://img.shields.io/badge/Ubuntu-18/20-green?style=plastic) ![GitHub](https://img.shields.io/badge/CentOS-7/8/Stream-green?style=plastic) ![GitHub](https://img.shields.io/badge/RaspberryPiOS-All-green?style=plastic) 
+[![GitHub](https://img.shields.io/github/license/d3athkai/MOTD-Login-Banner-for-Linux?style=plastic)](#)  
+[![Red Hat](https://img.shields.io/badge/Red%20Hat-E5141F?style=plastic)](#) [![Rocky Linux](https://img.shields.io/badge/RockyLinux-07BA82?style=plastic)](#) [![Ubuntu+](https://img.shields.io/badge/Ubuntu-DD4814?style=plastic)](#) [![Raspberry Pi OS](https://img.shields.io/badge/Raspberry%20Pi%20OS-C51A4A?style=plastic)](#)  
 
 # MOTD Login Banner for Linux
 
